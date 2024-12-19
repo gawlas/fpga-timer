@@ -1,0 +1,67 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 12/01/2024 11:12:33 AM
+// Design Name: 
+// Module Name: pos_edge_detector_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module pos_edge_detector_tb;
+    // inputs
+    reg IN;
+    reg RST_N;
+    reg CLK;
+    wire OUT;
+        
+    // clock
+    initial CLK = 0;
+    always #5 CLK = ~CLK;
+   
+    // create UUT
+    pos_edge_detector UUT(
+        .IN(IN),
+        .RST_N(RST_N),
+        .CLK(CLK),
+        .OUT(OUT)
+    );
+    
+    initial begin
+        // set reset
+        RST_N = 0;
+        IN = 0;
+        
+        // wait for some time
+        #100;
+        
+        // start
+        RST_N = 1;
+        #95;
+        
+        IN = 1;
+        #100
+        IN = 0;
+        #100
+        IN = 1;
+        #200
+        IN = 0;
+        #50;
+        IN = 1;
+        #200;        
+        // end simulation
+        $finish;
+    end
+
+endmodule
